@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptic Hunt - Cypher-o-thon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blood-red: #8b0000;
+            --dark-bg: #0a0a0a;
+            --glow: #ff0000;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Special Elite', cursive;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Haunted background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        /* Responsive Container */
+        .home-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Navigation */
+        .navbar {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--blood-red);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-family: 'Eater', cursive;
+            margin: 0 1rem;
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--blood-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Logo */
+        .haunted-logo {
+            max-width: 100%;
+            height: auto;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px var(--glow));
+        }
+
+        /* Event Details */
+        .event-details {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            border: 2px solid var(--blood-red);
+            margin: 1.5rem auto;
+            max-width: 800px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 3rem;
+            color: var(--blood-red);
+            text-shadow: 0 0 10px var(--glow);
+            margin: 1.5rem 0;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .event-details {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .haunted-logo {
+                max-width: 80%;
+            }
+
+            .contact-tombstone {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Warning Styles */
+        .discord-warning {
+            color: #ff4444;
+            border: 2px solid #ff4444;
+            padding: 1rem;
+            margin: 1.5rem auto;
+            max-width: 800px;
+            animation: pulseWarning 1.5s infinite;
+            box-sizing: border-box;
+        }
+
+        @keyframes pulseWarning {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Contact Section */
+        .contact-tombstone {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--blood-red);
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 800px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .contact-tombstone::before {
+            content: '⚰️';
+            position: absolute;
+            font-size: 2rem;
+            top: -25px;
+            left: -25px;
+        }
+
+        .contact-link {
+            color: var(--blood-red);
+            text-decoration: none;
+            position: relative;
+            margin: 0.5rem 0;
+            display: block;
+            word-wrap: break-word;
+        }
+
+        .contact-link:hover {
+            text-shadow: 0 0 10px var(--glow);
+            transform: translateX(10px);
+        }
+
+        .contact-note {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 1rem;
+        }
+
+        /* Candle flicker effect */
+        .candle-flicker {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            animation: flicker 0.7s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="register.html" class="nav-link">Register</a>
+    </nav>
+
+    <!-- Candle flicker element -->
+    <div class="candle-flicker">🕯️</div>
+
+    <!-- Home Page Content -->
+    <div class="home-container">
+        <img src="haunted-logo.png" alt="Cryptic Hunt Logo" class="haunted-logo">
+        <h1>Cyph-o-thon</h1>
+        
+        <!-- Event Structure Section -->
+        <div class="event-details">
+            <h2>📜 Event Structure</h2>
+            <div class="round-section">
+                <h3>Preliminary Round (Online)</h3>
+                <p>⏳ Duration: 1st March 2025 7:00 PM - 3rd March 2025 7:00 AM</p>
+                <p>🔮 Platform: Discord</p>
+                <p>💀 Nightmare Difficulty: Medium</p>
+            </div>
+
+            <div class="round-section">
+                <h3>Finale Round (Offline)</h3>
+                <p>⏳ Date: To Be Decided</p>
+                <p>📍 Venue: To Be Announced</p>
+                <p>💀 Nightmare Difficulty: Extreme</p>
+            </div>
+        </div>
+
+        <!-- Discord Warning -->
+        <div class="discord-warning">
+            ⚠️ WARNING: A Discord account is MANDATORY for participation
+            <br>
+            <span style="font-size: 0.8em;">(Registrations without valid Discord IDs will be sacrificed to the cipher gods)</span>
+        </div>
+
+        <!-- Rules Section -->
+        <div class="event-details">
+            <h2>📜 Rules of the Hunt</h2>
+            <ul>
+                <li>No communication with spirits during prelims</li>
+                <li>Teams of 3 crypt keepers</li>
+                <li>All solutions must be in human-readable language</li>
+                <li>Finale participants will be chosen based on prelims performance</li>
+            </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="event-details">
+            <h2>🩸 Contact the Gravekeepers</h2>
+            <div class="contact-tombstone">
+                <p>Summon our dark priests through these unholy seals:</p>
+                <a href="mailto:gankitsysdev@gmail.com" class="contact-link">
+                    💀 gankitsysdev@gmail.com (Prime Archivist)
+                </a>
+                <a href="mailto:t.high1945@gmail.com" class="contact-link">
+                    🕸️ t.high1945@gmail.com (Crypt Master)
+                </a>
+                <a href="mailto:2005sam.play@gmail.com" class="contact-link">
+                    🔮 2005sam.play@gmail.com (Rune Smith)
+                </a>
+                <p class="contact-note">
+                    ※ Responses manifest within 13 minutes during the witching hour (7PM-7AM)
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
