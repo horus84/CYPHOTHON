@@ -83,7 +83,6 @@
             font-family: 'Creepster', cursive;
             font-size: 3rem;
             color: var(--blood-red);
-/*             text-shadow: 0 0 10px var(--glow); */
             margin: 1.5rem 0;
         }
 
@@ -99,9 +98,25 @@
             box-sizing: border-box;
         }
 
+        .registration-period {
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 1rem;
+            margin: 1.5rem auto;
+            max-width: 90%;
+            animation: pulseGreen 2s infinite;
+            background: rgba(0, 255, 0, 0.1);
+            box-sizing: border-box;
+        }
+
         @keyframes pulseLeader {
             0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 140, 0, 0.3); }
             50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 140, 0, 0.5); }
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); }
         }
 
         /* Google Form Iframe */
@@ -148,7 +163,7 @@
                 margin: 1rem 0;
             }
 
-            .leader-warning {
+            .leader-warning, .registration-period {
                 margin: 1rem;
                 padding: 0.8rem;
                 font-size: 0.9rem;
@@ -180,6 +195,19 @@
     <!-- Registration Page Content -->
     <div class="home-container">
         <h1>Enter If You Dare...</h1>
+
+        <!-- Registration Period Notice -->
+        <div class="registration-period">
+            🕰️ PORTAL ACTIVATION PERIOD 🕰️
+            <br>
+            <span style="font-size: 1em;">
+                21st February 2025 12:00 PM - 28th February 2025 11:59 PM
+            </span>
+            <br>
+            <span style="font-size: 0.8em;">
+                (The cipher gates remain sealed outside this temporal window)
+            </span>
+        </div>
     
         <!-- Team Leader Warning -->
         <div class="leader-warning">
