@@ -250,9 +250,20 @@
 
         h1 {
             font-family: 'Creepster', cursive;
-            font-size: 4rem;
             color: var(--blood-red);
             margin: 2rem 0;
+            /* Add these new properties */
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 0 1rem;
+            font-size: clamp(2.5rem, 8vw, 4rem); /* Responsive font size */
+        }
+
+        @media (max-width: 768px) {
+        h1 {
+            font-size: clamp(2rem, 7vw, 3rem); /* More aggressive scaling for mobile */
+            padding: 0 0.5rem;
+          }
         }
 
         .registration-form {
