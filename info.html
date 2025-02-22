@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Info - Cryptic Hunt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* Reuse existing styles from index.html */
+        :root {
+            --blood-red: #8b0000;
+            --dark-bg: #0a0a0a;
+            --glow: #ff0000;
+        }
+
+        body {
+            font-family: 'Special Elite', cursive;
+            background: var(--dark-bg);
+            color: #fff;
+            line-height: 1.6;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-family: 'Eater', cursive;
+            margin: 0 1rem;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--blood-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .info-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .info-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--blood-red);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: var(--blood-red);
+            font-family: 'Creepster', cursive;
+            margin-bottom: 1rem;
+        }
+
+        .register-button {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 15px 30px;
+            background: var(--blood-red);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .register-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .info-container {
+                padding: 1rem;
+            }
+            
+            .info-section {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Same as other pages) -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="info.html" class="nav-link">Info</a>
+    </nav>
+
+    <div class="info-container">
+        <!-- Event Introduction -->
+        <div class="info-section">
+            <h2>🔮 What is Cypher-o-thon?</h2>
+            <p>A 48-hour puzzle-solving marathon where you'll:</p>
+            <ul>
+                <li>Decrypt mysterious codes and riddles</li>
+                <li>Race against other teams</li>
+                <li>Win awesome prizes</li>
+                <li>No technical skills needed - just your brain!</li>
+            </ul>
+        </div>
+
+        <!-- Key Dates -->
+        <div class="info-section">
+            <h2>📅 Important Dates</h2>
+            <p>🗓 Registration: Feb 21 - Feb 28, 2025</p>
+            <p>⚡ Prelims: March 1-3, 2025 (Online)</p>
+            <p>🏆 Finals: TBD (Offline)</p>
+        </div>
+
+        <!-- How to Participate -->
+        <div class="info-section">
+            <h2>✅ How to Join</h2>
+            <ol>
+                <li>Form a team of 3 friends</li>
+                <li>Register using our simple form</li>
+                <li>Join our Discord server</li>
+                <li>Show up for the prelims!</li>
+            </ol>
+        </div>
+
+        <!-- Requirements -->
+        <div class="info-section">
+            <h2>🎒 What You Need</h2>
+            <ul>
+                <li>Smartphone/computer with internet</li>
+                <li>Discord account (free to create)</li>
+                <li>Pencil and paper for solving puzzles</li>
+            </ul>
+        </div>
+
+    
+
+        <!-- Contact -->
+        <div class="info-section">
+            <h2📞 Need Help?</h2>
+            <p>Contact our team:</p>
+            <ul>
+                <li>Ankit: 📧 gankitsysdev@gmail.com | 📞 +91 9354031843</li>
+                <li>Tanishk: 📧 t.high1945@gmail.com | 📞 +91 9569365862</li>
+            </ul>
+        </div>
+
+        <a href="register.html" class="register-button">Register Now</a>
+    </div>
+
+    <!-- Candle flicker element -->
+    <div class="candle-flicker">🕯️</div>
+</body>
+</html>
