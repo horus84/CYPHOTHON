@@ -1,345 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Cryptic Hunt - Cypher-o-thon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --blood-red: #8b0000;
-      --dark-bg: #0a0a0a;
-      --glow: #ff0000;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Special Elite', cursive;
-      background: var(--dark-bg);
-      color: #fff;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/black-paper.png');
-      opacity: 0.3;
-      z-index: -1;
-    }
-    /* General image responsiveness */
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    .navbar {
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.8);
-      border-bottom: 2px solid var(--blood-red);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .nav-link {
-      color: #fff !important;
-      font-family: 'Eater', cursive;
-      margin: 0 1rem;
-      text-decoration: none;
-      position: relative;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: var(--blood-red);
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after {
-      width: 100%;
-    }
-    /* Hide register link from nav */
-    .nav-link[href="register.html"] {
-      display: none;
-    }
-    .home-container {
-      text-align: center;
-      padding: 4rem 2rem;
-    }
-    .haunted-logo {
-      max-width: 90%;
-      width: 300px;
-      animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
-      filter: drop-shadow(0 0 15px var(--glow));
-      will-change: transform, opacity;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    @keyframes glow {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
-    .event-details {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 2rem;
-      border: 2px solid var(--blood-red);
-      margin: 2rem auto;
-      max-width: 800px;
-      position: relative;
-    }
-    .event-details::before {
-      content: '✞';
-      position: absolute;
-      font-size: 3rem;
-      opacity: 0.2;
-      top: -20px;
-      left: -20px;
-    }
-    h1 {
-      font-family: 'Creepster', cursive;
-      font-size: 4rem;
-      color: var(--blood-red);
-      margin: 2rem 0;
-    }
-    .subtitle {
-      font-family: Arial, sans-serif;
-      color: var(--blood-red);
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px var(--glow);
-      margin: -1rem 0 2rem 0;
-      letter-spacing: 2px;
-    }
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      .subtitle {
-        font-size: 1.1rem;
-        margin: -0.5rem 0 1.5rem 0;
-      }
-      .event-details {
-        padding: 1rem;
-        margin: 1rem;
-      }
-    }
-    .registration-form {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 2rem;
-      border: 2px solid var(--blood-red);
-      max-width: 600px;
-      margin: 2rem auto;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--blood-red);
-      color: #fff;
-      margin: 10px 0;
-      font-family: 'Special Elite', cursive;
-    }
-    button {
-      background: var(--blood-red);
-      color: #fff;
-      padding: 15px 30px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Eater', cursive;
-      font-size: 1.2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px var(--glow);
-    }
-    .discord-tutorial, .tutorial-button, .register-cta, .register-main-button {
-      margin-top: 1rem;
-    }
-    .discord-tutorial {
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--blood-red);
-    }
-    .tutorial-button {
-      background: var(--blood-red);
-      color: white;
-      padding: 8px 15px;
-      border: none;
-      cursor: pointer;
-    }
-    .register-cta {
-      margin: 2rem auto;
-      text-align: center;
-    }
-    .register-main-button {
-      background: var(--blood-red);
-      color: #fff;
-      padding: 20px 40px;
-      font-size: 1.5rem;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
-    }
-    .discord-warning {
-      color: #ff4444;
-      border: 2px solid #ff4444;
-      padding: 1rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      animation: pulseWarning 1.5s infinite;
-    }
-    @keyframes pulseWarning {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .contact-tombstone {
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid var(--blood-red);
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      position: relative;
-    }
-    .contact-tombstone::before {
-      content: '⚰️';
-      position: absolute;
-      font-size: 2rem;
-      top: -25px;
-      left: -25px;
-    }
-    .contact-link {
-      color: var(--blood-red);
-      text-decoration: none;
-      position: relative;
-      margin: 0.5rem 0;
-      display: block;
-    }
-    .contact-link:hover {
-      text-shadow: 0 0 10px var(--glow);
-      transform: translateX(10px);
-    }
-    .contact-note {
-      color: #666;
-      font-size: 0.9em;
-      margin-top: 1rem;
-    }
-    /* Candle Flicker */
-    .candle-flicker {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-size: 2rem;
-      animation: flicker 0.7s infinite;
-      will-change: opacity, transform;
-      transform: translateZ(0);
-    }
-    @keyframes flicker {
-      0% { opacity: 0.8; }
-      50% { opacity: 0.4; }
-      100% { opacity: 0.8; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptic Hunt - Cypher-o-thon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blood-red: #8b0000;
+            --dark-bg: #0a0a0a;
+            --glow: #ff0000;
+        }
+        /* Mobile-first media queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+
+            .nav-link {
+                margin: 0.5rem 0;
+                font-size: 1.1rem;
+            }
+
+            .haunted-logo {
+                width: 90%;
+                max-width: 300px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin: 1rem 0;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin: -0.5rem 0 1.5rem 0;
+            }
+
+            .event-details {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .event-details::before {
+                font-size: 2rem;
+                top: -15px;
+                left: -15px;
+            }
+
+            .register-main-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+
+            .contact-tombstone {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .contact-tombstone::before {
+                font-size: 1.5rem;
+                top: -15px;
+                left: -15px;
+            }
+
+            .discord-warning {
+                margin: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Optimize animations for mobile */
+            .haunted-logo {
+                animation: float 4s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        }
+
+        /* Performance optimizations */
+        .haunted-logo, button, .nav-link {
+            will-change: transform, opacity;
+        }
+
+        /* Responsive iframe container */
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Touch-friendly buttons */
+        button, .nav-link {
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        /* Mobile form optimization */
+        input, select {
+            font-size: 16px; /* Prevent iOS zoom */
+        }
+
+        /* Simplify animations on mobile */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }   
+        body {
+            font-family: 'Special Elite', cursive;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Haunted background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .navbar {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--blood-red);
+            display: flex;
+            justify-content: center;
+        }
+        /* Remove Register from nav */
+        .nav-link[href="register.html"] {
+            display: none;
+        }
+        /* Discord Tutorial Styles */
+        .discord-tutorial {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--blood-red);
+        }
+        .tutorial-button {
+            background: var(--blood-red);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Register Button Section */
+        .register-cta {
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .register-main-button {
+            background: var(--blood-red);
+            color: #fff;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-family: 'Eater', cursive;
+            margin: 0 1rem;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--blood-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .home-container {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .haunted-logo {
+            width: 300px;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px var(--glow));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .event-details {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border: 2px solid var(--blood-red);
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .event-details::before {
+            content: '✞';
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.2;
+            top: -20px;
+            left: -20px;
+        }
+
+        h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 4rem;
+            color: var(--blood-red);
+            margin: 2rem 0;
+        }
+
+        .registration-form {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border: 2px solid var(--blood-red);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--blood-red);
+            color: #fff;
+            margin: 10px 0;
+            font-family: 'Special Elite', cursive;
+        }
+
+        button {
+            background: var(--blood-red);
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Eater', cursive;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--glow);
+        }
+        
+        
+
+        /* Add new warning style */
+        .discord-warning {
+            color: #ff4444;
+            border: 2px solid #ff4444;
+            padding: 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            animation: pulseWarning 1.5s infinite;
+        }
+
+        @keyframes pulseWarning {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        /* Discord Tutorial Styles */
+        .discord-tutorial {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--blood-red);
+        }
+        .tutorial-button {
+            background: var(--blood-red);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Register Button Section */
+        .register-cta {
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .register-main-button {
+            background: var(--blood-red);
+            color: #fff;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+        }
+
+        .contact-tombstone {
+        background: rgba(0, 0, 0, 0.7);
+        border: 2px solid var(--blood-red);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 800px;
+        position: relative;
+        }
+
+       .contact-tombstone::before {
+        content: '⚰️';
+        position: absolute;
+        font-size: 2rem;
+        top: -25px;
+        left: -25px;
+        }
+
+        .contact-link {
+            color: var(--blood-red);
+            text-decoration: none;
+            position: relative;
+            margin: 0.5rem 0;
+            display: block;
+        }
+
+        .contact-link:hover {
+            text-shadow: 0 0 10px var(--glow);
+            transform: translateX(10px);
+        }
+
+        .contact-note {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 1rem;
+        }
+        
+        .subtitle {
+            font-family: 'Arial', sans-serif; /* Contrast with Creepster font */
+            color: var(--blood-red);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--glow);
+            margin: -1rem 0 2rem 0; /* Adjust spacing */
+            letter-spacing: 2px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .subtitle {
+                font-size: 1.1rem;
+                margin: -0.5rem 0 1.5rem 0;
+            }
+        }
+    
+        /* Candle flicker effect */
+        .candle-flicker {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            animation: flicker 0.7s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="info.html" class="nav-link">Information</a>
-  </nav>
-  <div class="candle-flicker">🕯️</div>
-  <div class="home-container">
-    <img src="haunted-logo.png" alt="Cryptic Hunt Logo" class="haunted-logo">
-    <h1>Cyph-o-thon</h1>
-    <p class="subtitle">NO TECHNICAL BACKGROUND NEEDED</p>
-    <div class="event-details">
-      <h2>📜 Event Structure</h2>
-      <div class="round-section">
-        <h3>Preliminary Round (Online)</h3>
-        <p>⏳ Duration: 1st March 2025 7:00 PM - 3rd March 2025 7:00 AM</p>
-        <p>🔮 Platform: Discord</p>
-        <p>💀 Nightmare Difficulty: Medium</p>
-      </div>
-      <div class="round-section">
-        <h3>Finale Round (Offline)</h3>
-        <p>⏳ Date: To Be Decided</p>
-        <p>📍 Venue: To Be Announced</p>
-        <p>💀 Nightmare Difficulty: Extreme</p>
-      </div>
-    </div>
-    <div class="discord-warning">
-      ⚠️ WARNING: A Discord account is MANDATORY for participation
-      <div class="discord-tutorial">
-        <button class="tutorial-button" onclick="toggleTutorial()">Show/Hide Discord Guide</button>
-        <div id="tutorial-content" style="display: none;">
-          <iframe width="100%" height="315" 
-                  src="https://www.youtube.com/embed/DISCORD_TUTORIAL_VIDEO_ID" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-          </iframe>
-          <p style="margin-top: 1rem;">Step-by-Step Guide:</p>
-          <ol>
-            <li>Visit discord.com</li>
-            <li>Create account using team email</li>
-            <li>Join our server: [Your Discord Link]</li>
-          </ol>
+    <nav class="navbar" style="touch-action: pan-y;"></nav>
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="info.html" class="nav-link">Information</a> <!-- New Information link -->
+    </nav>
+
+    
+    
+
+    <!-- Candle flicker element -->
+    <div class="candle-flicker">🕯️</div>
+
+    <!-- Home Page (index1.html) -->
+    <div class="home-container">
+        <style>
+            .haunted-logo {
+                width: 500px; /* Adjust this value as needed */
+                height: auto; /* Maintains aspect ratio */
+            }
+        </style>
+        <img src="haunted-logo.png" alt="Cryptic Hunt Logo" class="haunted-logo">
+        <h1>Cyph-o-thon</h1>
+        <p class="subtitle">NO TECHNICAL BACKGROUND NEEDED</p>
+        
+         <!-- Event Structure Section -->
+         <div class="event-details">
+            <h2>📜 Event Structure</h2>
+            <div class="round-section">
+                <h3>Preliminary Round (Online)</h3>
+                <p>⏳ Duration: 1st March 2025 7:00 PM - 3rd March 2025 7:00 AM</p>
+                <p>🔮 Platform: Discord</p>
+                <p>💀 Nightmare Difficulty: Medium</p>
+            </div>
+
+            <div class="round-section">
+                <h3>Finale Round (Offline)</h3>
+                <p>⏳ Date: To Be Decided</p>
+                <p>📍 Venue: To Be Announced</p>
+                <p>💀 Nightmare Difficulty: Extreme</p>
+            </div>
         </div>
-      </div>
+            <!-- Modified Discord Warning Section -->
+        <div class="discord-warning">
+            ⚠️ WARNING: A Discord account is MANDATORY for participation
+            <div class="discord-tutorial">
+                <button class="tutorial-button" onclick="toggleTutorial()">Show/Hide Discord Guide</button>
+                <div id="tutorial-content" style="display: none;">
+                    <iframe width="100%" height="315" 
+                            src="https://www.youtube.com/embed/DISCORD_TUTORIAL_VIDEO_ID" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                    <p style="margin-top: 1rem;">Step-by-Step Guide:</p>
+                    <ol>
+                        <li>Visit discord.com</li>
+                        <li>Create account using team email</li>
+                        <li>Join our server: [Your Discord Link]</li>
+                    </ol>
+                </div>
+            </div>
+        <!-- Mandatory Discord Notice -->
+        <div class="discord-warning">
+            ⚠️ WARNING: A Discord account is MANDATORY for participation
+            <br>
+            <span style="font-size: 0.8em;">(Registrations without valid Discord IDs will be sacrificed to the cipher gods)</span>
+        </div>
+        <!-- New Register Button Section -->
+        <div class="register-cta">
+            <button class="register-main-button" onclick="window.location.href='register.html'">
+                REGISTER
+            </button>
+        </div>
+
+        <script>
+            // Toggle Discord tutorial visibility
+            function toggleTutorial() {
+                const content = document.getElementById('tutorial-content');
+                content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+
+         <!-- Rules Section -->
+         <div class="event-details">
+            <h2>📜 Rules of the Hunt</h2>
+            <ul>
+                <li>No communication with spirits during prelims</li>
+                <li>Teams of 3 crypt keepers</li>
+                <li>All solutions must be in human-readable language</li>
+                <li>Finale participants will be chosen based on prelims performance</li>
+            </ul>
+        </div>
+        <div class="event-details">
+            <h2>🩸 Contact the Gravekeepers (For Technical Emergencies)</h2>
+            <div class="contact-tombstone">
+                <p>Summon our dark priests through these unholy seals:</p>
+                
+                <a href="mailto:gankitsysdev@gmail.com" class="contact-link">
+                    💀 gankitsysdev@gmail.com (Prime Archivist)
+                </a>
+                
+                <a href="mailto:t.high1945@gmail.com" class="contact-link">
+                    🕸️ t.high1945@gmail.com (Crypt Master)
+                </a>
+                
+                <a href="mailto:2005sam.play@gmail.com" class="contact-link">
+                    🔮 2005sam.play@gmail.com (Rune Smith)
+                </a>
+        
+                <p class="contact-note">
+                    ※ Responses manifest within 13 minutes during the witching hour (7PM-7AM)
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="register-cta">
-      <button class="register-main-button" onclick="window.location.href='register.html'">
-        REGISTER
-      </button>
-    </div>
-    <div class="event-details">
-      <h2>📜 Rules of the Hunt</h2>
-      <ul>
-        <li>No communication with spirits during prelims</li>
-        <li>Teams of 3 crypt keepers</li>
-        <li>All solutions must be in human-readable language</li>
-        <li>Finale participants will be chosen based on prelims performance</li>
-      </ul>
-    </div>
-    <div class="event-details">
-      <h2>🩸 Contact the Gravekeepers (For Technical Emergencies)</h2>
-      <div class="contact-tombstone">
-        <p>Summon our dark priests through these unholy seals:</p>
-        <a href="mailto:gankitsysdev@gmail.com" class="contact-link">
-          💀 gankitsysdev@gmail.com (Prime Archivist)
-        </a>
-        <a href="mailto:t.high1945@gmail.com" class="contact-link">
-          🕸️ t.high1945@gmail.com (Crypt Master)
-        </a>
-        <a href="mailto:2005sam.play@gmail.com" class="contact-link">
-          🔮 2005sam.play@gmail.com (Rune Smith)
-        </a>
-        <p class="contact-note">
-          ※ Responses manifest within 13 minutes during the witching hour (7PM-7AM)
-        </p>
-      </div>
-    </div>
-  </div>
-  <script>
-    function toggleTutorial() {
-      var content = document.getElementById('tutorial-content');
-      content.style.display = (content.style.display === 'none' || content.style.display === '') ? 'block' : 'none';
-    }
-  </script>
 </body>
 </html>
