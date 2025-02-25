@@ -3,28 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Cypher-o-thon, a 48-hour cryptic puzzle-solving event">
     <title>Event Info - Cryptic Hunt</title>
-    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load only the fonts we need -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eater&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        /* Reuse existing styles from index.html */
+        /* Root variables */
         :root {
             --blood-red: #8b0000;
             --dark-bg: #0a0a0a;
             --glow: #ff0000;
         }
 
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Special Elite', cursive;
-            background: var(--dark-bg);
+            background-color: var(--dark-bg);
             color: #fff;
             line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Haunted background effect with local texture for performance */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/png;base64,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');
+            opacity: 0.3;
+            z-index: -1;
+            will-change: transform; /* Hardware acceleration hint */
+        }
+
+        .navbar {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--blood-red);
+            display: flex;
+            justify-content: flex-start;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
         .nav-link {
-            color: #fff !important;
+            color: #fff;
             font-family: 'Eater', cursive;
             margin: 0 1rem;
             text-decoration: none;
             position: relative;
+            display: inline-block;
+            padding: 0.5rem 0;
+            transition: transform 0.3s ease;
         }
 
         .nav-link::after {
@@ -38,28 +82,81 @@
             transition: width 0.3s ease;
         }
 
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+
         .nav-link:hover::after {
             width: 100%;
+        }
+
+        .nav-link[href="info.html"]::after {
+            background: #00ff00; /* Green glow for Info */
+            width: 100%; /* Active state */
         }
 
         .info-container {
             max-width: 800px;
             margin: 2rem auto;
-            padding: 2rem;
+            padding: 1.5rem;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .info-section {
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid var(--blood-red);
-            padding: 2rem;
-            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
             border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        /* Ghost effect on hover */
+        .info-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 65%, rgba(255, 255, 255, 0.05) 100%);
+            pointer-events: none;
         }
 
         h2 {
             color: var(--blood-red);
             font-family: 'Creepster', cursive;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 5px var(--glow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        p, ul, ol {
             margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
         }
 
         .register-button {
@@ -72,7 +169,22 @@
             text-align: center;
             text-decoration: none;
             border-radius: 5px;
+            font-family: 'Eater', cursive;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
+        }
+
+        .register-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
 
         .register-button:hover {
@@ -80,7 +192,36 @@
             box-shadow: 0 0 20px var(--glow);
         }
 
-        /* Mobile Styles */
+        .register-button:hover::before {
+            left: 100%;
+        }
+
+        /* Candle flicker effect with improved performance */
+        .candle-flicker {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.7));
+            z-index: 10;
+            animation: flicker 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.7; transform: scale(0.97); }
+            25% { opacity: 0.8; }
+            50% { opacity: 0.6; transform: scale(1.03); }
+            75% { opacity: 0.9; }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+
+        /* Highlight for important information */
+        .highlight {
+            color: #FFC107;
+            font-weight: bold;
+        }
+
+        /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             .info-container {
                 padding: 1rem;
@@ -89,6 +230,15 @@
             .info-section {
                 padding: 1rem;
                 margin: 1rem 0;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .register-button {
+                width: 100%;
+                max-width: 200px;
             }
         }
     </style>
@@ -103,7 +253,7 @@
     <div class="info-container">
         <!-- Event Introduction -->
         <div class="info-section">
-            <h2>🔮 What is Cypher-o-thon?</h2>
+            <h2><span role="img" aria-label="crystal ball">🔮</span> What is Cypher-o-thon?</h2>
             <p>A 48-hour puzzle-solving marathon where you'll:</p>
             <ul>
                 <li>Decrypt mysterious codes and riddles</li>
@@ -115,15 +265,15 @@
 
         <!-- Key Dates -->
         <div class="info-section">
-            <h2>📅 Important Dates</h2>
-            <p>🗓 Registration: Starts from Feb 21, 2025</p>
-            <p>⚡ Prelims: March 1-3, 2025 (Online)</p>
-            <p>🏆 Finals: TBD (Offline)</p>
+            <h2><span role="img" aria-label="calendar">📅</span> Important Dates</h2>
+            <p><span role="img" aria-label="calendar">🗓</span> Registration: <span class="highlight">Feb 21</span></p>
+            <p><span role="img" aria-label="lightning">⚡</span> Prelims: <span class="highlight">March 1-3, 2025</span> (Online)</p>
+            <p><span role="img" aria-label="trophy">🏆</span> Finals: TBD (Offline)</p>
         </div>
 
         <!-- How to Participate -->
         <div class="info-section">
-            <h2>✅ How to Join</h2>
+            <h2><span role="img" aria-label="check mark">✅</span> How to Join</h2>
             <ol>
                 <li>Form a team of 3 friends</li>
                 <li>Register using our simple form</li>
@@ -134,7 +284,7 @@
 
         <!-- Requirements -->
         <div class="info-section">
-            <h2>🎒 What You Need</h2>
+            <h2><span role="img" aria-label="backpack">🎒</span> What You Need</h2>
             <ul>
                 <li>Smartphone/computer with internet</li>
                 <li>Discord account (free to create)</li>
@@ -142,15 +292,13 @@
             </ul>
         </div>
 
-    
-
         <!-- Contact -->
         <div class="info-section">
-            <h2📞 Need Help?</h2>
+            <h2><span role="img" aria-label="phone">📞</span> Need Help?</h2>
             <p>Contact our team:</p>
             <ul>
-                <li>Ankit: 📧 gankitsysdev@gmail.com | 📞 +91 9354031843</li>
-                <li>Tanishk: 📧 t.high1945@gmail.com | 📞 +91 9569365862</li>
+                <li>Ankit: <span role="img" aria-label="email">📧</span> <a href="mailto:gankitsysdev@gmail.com" style="color:#add8e6;">gankitsysdev@gmail.com</a> | <span role="img" aria-label="phone">📞</span> +91 9354031843</li>
+                <li>Tanishk: <span role="img" aria-label="email">📧</span> <a href="mailto:t.high1945@gmail.com" style="color:#add8e6;">t.high1945@gmail.com</a> | <span role="img" aria-label="phone">📞</span> +91 9569365862</li>
             </ul>
         </div>
 
@@ -158,6 +306,6 @@
     </div>
 
     <!-- Candle flicker element -->
-    <div class="candle-flicker">🕯️</div>
+    <div class="candle-flicker" aria-hidden="true">🕯️</div>
 </body>
 </html>
