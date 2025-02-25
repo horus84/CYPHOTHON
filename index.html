@@ -3,149 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Basic Favicon -->
+    <meta name="description" content="Cypher-o-thon - A cryptic hunt event with no technical background needed">
+    <!-- Favicon system -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-    <!-- Modern Browsers -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    
-    <!-- Apple Devices -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Optional: Manifest for PWA -->
     <link rel="manifest" href="site.webmanifest">
-    <meta name="theme-color" content="#8b0000">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <title>Cryptic Hunt - Cypher-o-thon</title>
+    
+    <!-- Preconnect and preload to improve font loading performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --blood-red: #8b0000;
             --dark-bg: #0a0a0a;
             --glow: #ff0000;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-radius: 4px;
+            --transition-speed: 0.3s;
         }
-        /* Mobile-first media queries */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 0.5rem;
-            }
-
-            .nav-link {
-                margin: 0.5rem 0;
-                font-size: 1.1rem;
-            }
-
-            .haunted-logo {
-                width: 90%;
-                max-width: 300px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-                margin: 1rem 0;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-                margin: -0.5rem 0 1.5rem 0;
-            }
-
-            .event-details {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            .event-details::before {
-                font-size: 2rem;
-                top: -15px;
-                left: -15px;
-            }
-
-            .register-main-button {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-            }
-
-            .contact-tombstone {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            .contact-tombstone::before {
-                font-size: 1.5rem;
-                top: -15px;
-                left: -15px;
-            }
-
-            .discord-warning {
-                margin: 1rem;
-                font-size: 0.9rem;
-            }
-
-            /* Optimize animations for mobile */
-            .haunted-logo {
-                animation: float 4s ease-in-out infinite;
-            }
-
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
-            }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        /* Performance optimizations */
-        .haunted-logo, button, .nav-link {
-            will-change: transform, opacity;
-        }
-
-        /* Responsive iframe container */
-        .video-container {
-            position: relative;
-            padding-top: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Touch-friendly buttons */
-        button, .nav-link {
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        /* Mobile form optimization */
-        input, select {
-            font-size: 16px; /* Prevent iOS zoom */
-        }
-
-        /* Simplify animations on mobile */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }   
+        
         body {
             font-family: 'Special Elite', cursive;
-            background: var(--dark-bg);
-            color: #fff;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Haunted background effect */
+        /* Fixed pattern background with better performance */
         body::before {
             content: '';
             position: fixed;
@@ -156,58 +56,34 @@
             background: url('https://www.transparenttextures.com/patterns/black-paper.png');
             opacity: 0.3;
             z-index: -1;
+            pointer-events: none;
         }
 
         .navbar {
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.8);
+            padding: 0.8rem;
+            background-color: rgba(0, 0, 0, 0.85);
             border-bottom: 2px solid var(--blood-red);
             display: flex;
             justify-content: center;
-        }
-        /* Remove Register from nav */
-        .nav-link[href="register.html"] {
-            display: none;
-        }
-        /* Discord Tutorial Styles */
-        .discord-tutorial {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--blood-red);
-        }
-        .tutorial-button {
-            background: var(--blood-red);
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        /* Register Button Section */
-        .register-cta {
-            margin: 2rem auto;
-            text-align: center;
-        }
-
-        .register-main-button {
-            background: var(--blood-red);
-            color: #fff;
-            padding: 20px 40px;
-            font-size: 1.5rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .nav-link {
-            color: #fff !important;
+            color: var(--text-primary) !important;
             font-family: 'Eater', cursive;
-            margin: 0 1rem;
+            margin: 0 1.2rem;
             text-decoration: none;
             position: relative;
+            padding: 0.5rem;
+            display: inline-block;
+            font-size: 1.1rem;
+            min-width: 44px;
+            min-height: 44px;
+            text-align: center;
         }
 
         .nav-link::after {
@@ -217,250 +93,396 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background: var(--blood-red);
-            transition: width 0.3s ease;
+            background-color: var(--blood-red);
+            transition: width var(--transition-speed) ease;
         }
 
         .nav-link:hover::after {
             width: 100%;
         }
-
-        .home-container {
-            text-align: center;
-            padding: 4rem 2rem;
+        
+        /* Hide register link in nav */
+        .nav-link[href="register.html"] {
+            display: none;
         }
 
+        /* Main container */
+        .home-container {
+            text-align: center;
+            padding: 3rem 1rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo animation */
         .haunted-logo {
-            width: 300px;
-            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            width: min(500px, 90vw);
+            height: auto;
             filter: drop-shadow(0 0 15px var(--glow));
+            will-change: transform, opacity;
+            animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
         @keyframes glow {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            0% { filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7)); }
+            100% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); }
         }
 
-        .event-details {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 2rem;
+        /* Main title */
+        h1 {
+            font-family: 'Creepster', cursive;
+            color: var(--blood-red);
+            margin: 1.5rem 0;
+            padding: 0 1rem;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+            letter-spacing: 2px;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Arial', sans-serif;
+            color: var(--blood-red);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--glow);
+            margin: -0.8rem 0 2.5rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* Content boxes */
+        .event-details, .contact-tombstone {
+            background-color: rgba(0, 0, 0, 0.8);
             border: 2px solid var(--blood-red);
-            margin: 2rem auto;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2.5rem auto;
             max-width: 800px;
             position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform var(--transition-speed) ease;
         }
 
+        .event-details:hover, .contact-tombstone:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Decorative elements */
         .event-details::before {
             content: '✞';
             position: absolute;
             font-size: 3rem;
-            opacity: 0.2;
+            opacity: 0.3;
             top: -20px;
             left: -20px;
         }
 
-        h1 {
-            font-family: 'Creepster', cursive;
-            color: var(--blood-red);
-            margin: 2rem 0;
-            /* Add these new properties */
-            white-space: nowrap;
-            overflow: hidden;
-            padding: 0 1rem;
-            font-size: clamp(2.5rem, 8vw, 4rem); /* Responsive font size */
+        .contact-tombstone::before {
+            content: '⚰️';
+            position: absolute;
+            font-size: 2rem;
+            top: -25px;
+            left: -25px;
         }
 
-        @media (max-width: 768px) {
-        h1 {
-            font-size: clamp(2rem, 7vw, 3rem); /* More aggressive scaling for mobile */
-            padding: 0 0.5rem;
-          }
-        }
-
-        .registration-form {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2rem;
-            border: 2px solid var(--blood-red);
-            max-width: 600px;
-            margin: 2rem auto;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--blood-red);
-            color: #fff;
-            margin: 10px 0;
-            font-family: 'Special Elite', cursive;
-        }
-
-        button {
-            background: var(--blood-red);
-            color: #fff;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
+        /* Headings */
+        h2 {
             font-family: 'Eater', cursive;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            color: var(--blood-red);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
         }
 
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px var(--glow);
+        h3 {
+            font-family: 'Special Elite', cursive;
+            color: var(--text-primary);
+            margin: 1.2rem 0 0.8rem;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.5);
+            padding-bottom: 0.5rem;
         }
-        
-        
 
-        /* Add new warning style */
+        /* Round sections */
+        .round-section {
+            margin-bottom: 1.8rem;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--blood-red);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .round-section p {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .round-section p::before {
+            margin-right: 0.5rem;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 1.5rem;
+            list-style-type: none;
+        }
+
+        ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        ul li::before {
+            content: '🔮';
+            position: absolute;
+            left: -0.5rem;
+        }
+
+        /* Discord warning */
         .discord-warning {
             color: #ff4444;
             border: 2px solid #ff4444;
-            padding: 1rem;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
             margin: 2rem auto;
             max-width: 800px;
-            animation: pulseWarning 1.5s infinite;
+            background-color: rgba(50, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            animation: pulseWarning 2s infinite;
         }
 
         @keyframes pulseWarning {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }
+            50% { transform: scale(1.01); box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
         }
-        /* Discord Tutorial Styles */
+
+        /* Discord tutorial */
         .discord-tutorial {
             margin-top: 1rem;
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
+            background-color: rgba(30, 30, 30, 0.7);
             border: 1px solid var(--blood-red);
-        }
-        .tutorial-button {
-            background: var(--blood-red);
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 1rem;
+            border-radius: var(--border-radius);
         }
 
-        /* Register Button Section */
-        .register-cta {
-            margin: 2rem auto;
-            text-align: center;
+        /* Buttons */
+        button, .tutorial-button, .register-main-button {
+            background-color: var(--blood-red);
+            color: var(--text-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: 'Eater', cursive;
+            transition: all var(--transition-speed) ease;
+            will-change: transform;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .tutorial-button {
+            padding: 10px 15px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
 
         .register-main-button {
-            background: var(--blood-red);
-            color: #fff;
             padding: 20px 40px;
             font-size: 1.5rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
             box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+            margin: 2rem 0;
+            letter-spacing: 1px;
         }
 
-        .contact-tombstone {
-        background: rgba(0, 0, 0, 0.7);
-        border: 2px solid var(--blood-red);
-        padding: 2rem;
-        margin: 2rem auto;
-        max-width: 800px;
-        position: relative;
+        button:hover, .tutorial-button:hover, .register-main-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow);
+            background-color: #a00000;
         }
 
-       .contact-tombstone::before {
-        content: '⚰️';
-        position: absolute;
-        font-size: 2rem;
-        top: -25px;
-        left: -25px;
+        /* Register button section */
+        .register-cta {
+            margin: 2.5rem auto;
+            text-align: center;
         }
 
+        /* Contact links */
         .contact-link {
             color: var(--blood-red);
             text-decoration: none;
             position: relative;
-            margin: 0.5rem 0;
+            margin: 0.7rem 0;
             display: block;
+            padding: 0.5rem;
+            transition: all var(--transition-speed) ease;
+            border-left: 0 solid var(--blood-red);
         }
 
         .contact-link:hover {
             text-shadow: 0 0 10px var(--glow);
             transform: translateX(10px);
+            border-left: 3px solid var(--blood-red);
+            padding-left: 1rem;
+            background-color: rgba(139, 0, 0, 0.1);
         }
 
         .contact-note {
-            color: #666;
+            color: #999;
             font-size: 0.9em;
-            margin-top: 1rem;
-        }
-        
-        .subtitle {
-            font-family: 'Arial', sans-serif; /* Contrast with Creepster font */
-            color: var(--blood-red);
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px var(--glow);
-            margin: -1rem 0 2rem 0; /* Adjust spacing */
-            letter-spacing: 2px;
+            margin-top: 1.5rem;
+            font-style: italic;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .subtitle {
-                font-size: 1.1rem;
-                margin: -0.5rem 0 1.5rem 0;
-            }
-        }
-    
-        /* Candle flicker effect */
+        /* Candle effect */
         .candle-flicker {
             position: fixed;
             bottom: 20px;
             right: 20px;
             font-size: 2rem;
-            animation: flicker 0.7s infinite;
+            animation: flicker 1.5s infinite alternate;
+            z-index: 10;
+            text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
         }
 
         @keyframes flicker {
-            0% { opacity: 0.8; }
-            50% { opacity: 0.4; }
-            100% { opacity: 0.8; }
+            0% { opacity: 0.8; text-shadow: 0 0 10px rgba(255, 165, 0, 0.7); }
+            25% { opacity: 0.6; text-shadow: 0 0 8px rgba(255, 165, 0, 0.5); }
+            50% { opacity: 0.9; text-shadow: 0 0 12px rgba(255, 165, 0, 0.8); }
+            75% { opacity: 0.7; text-shadow: 0 0 9px rgba(255, 165, 0, 0.6); }
+            100% { opacity: 0.8; text-shadow: 0 0 10px rgba(255, 165, 0, 0.7); }
+        }
+
+        /* Video container */
+        .video-container {
+            position: relative;
+            padding-top: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 1rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--border-radius);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-top: 2px solid var(--blood-red);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.8rem 0.5rem;
+            }
+
+            .nav-link {
+                margin: 0.5rem 0;
+                font-size: 1.1rem;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 7vw, 3rem);
+                padding: 0 0.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin: -0.5rem 0 1.5rem;
+            }
+
+            .event-details, .contact-tombstone, .discord-warning {
+                margin: 1.5rem 1rem;
+                padding: 1.2rem;
+            }
+
+            .event-details::before {
+                font-size: 2rem;
+                top: -15px;
+                left: -15px;
+            }
+
+            .contact-tombstone::before {
+                font-size: 1.5rem;
+                top: -15px;
+                left: -15px;
+            }
+
+            .register-main-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            
+            /* Optimized animations for mobile */
+            .haunted-logo {
+                animation: float 4s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        }
+
+        /* Reduce animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            
+            .haunted-logo {
+                animation: none;
+                transform: translateY(0);
+            }
+            
+            .discord-warning {
+                animation: none;
+            }
+            
+            .candle-flicker {
+                animation: none;
+                opacity: 0.8;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar" style="touch-action: pan-y;"></nav>
     <nav class="navbar">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="info.html" class="nav-link">Information</a> <!-- New Information link -->
+        <a href="info.html" class="nav-link">Information</a>
     </nav>
 
-    
-    
+    <div class="candle-flicker" aria-hidden="true">🕯️</div>
 
-    <!-- Candle flicker element -->
-    <div class="candle-flicker">🕯️</div>
-
-    <!-- Home Page (index1.html) -->
-    <div class="home-container">
-        <style>
-            .haunted-logo {
-                width: 500px; /* Adjust this value as needed */
-                height: auto; /* Maintains aspect ratio */
-            }
-        </style>
-        <img src="haunted-logo.png" alt="Cryptic Hunt Logo" class="haunted-logo">
+    <main class="home-container">
+        <img src="haunted-logo.png" alt="Cryptic Hunt Logo" class="haunted-logo" loading="eager">
         <h1>Cyph-o-thon</h1>
         <p class="subtitle">NO TECHNICAL BACKGROUND NEEDED</p>
         
-         <!-- Event Structure Section -->
-         <div class="event-details">
+        <!-- Event Structure Section -->
+        <section class="event-details">
             <h2>📜 Event Structure</h2>
             <div class="round-section">
                 <h3>Preliminary Round (Online)</h3>
@@ -475,19 +497,38 @@
                 <p>📍 Venue: To Be Announced</p>
                 <p>💀 Nightmare Difficulty: Extreme</p>
             </div>
-        </div>
-            <!-- Modified Discord Warning Section -->
+        </section>
+        
+        <!-- Rules Section -->
+        <section class="event-details">
+            <h2>📜 Rules of the Hunt</h2>
+            <ul>
+                <li>No communication with spirits during prelims</li>
+                <li>Teams of 3 crypt keepers</li>
+                <li>All solutions must be in human-readable language</li>
+                <li>Finale participants will be chosen based on prelims performance</li>
+            </ul>
+        </section>
+            
+        <!-- Discord Warning Section -->
         <div class="discord-warning">
             ⚠️ WARNING: A Discord account is MANDATORY for participation
+            <br>
+            <span style="font-size: 0.9em;">(Registrations without valid Discord IDs will be sacrificed to the cipher gods)</span>
+            
             <div class="discord-tutorial">
-                <button class="tutorial-button" onclick="toggleTutorial()">Show/Hide Discord Guide</button>
+                <button class="tutorial-button" onclick="toggleTutorial()" aria-expanded="false" aria-controls="tutorial-content">
+                    Show/Hide Discord Guide
+                </button>
                 <div id="tutorial-content" style="display: none;">
-                    <iframe width="100%" height="315" 
-                            src="https://www.youtube.com/embed/h2IqIBmoFMI?si=g4xhJMSLwQzcYBD6" 
-                            frameborder="0" 
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/DISCORD_TUTORIAL_VIDEO_ID" 
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                    </iframe>
+                            allowfullscreen
+                            title="Discord Tutorial Video">
+                        </iframe>
+                    </div>
                     <p style="margin-top: 1rem;">Step-by-Step Guide:</p>
                     <ol>
                         <li>Visit discord.com</li>
@@ -496,39 +537,18 @@
                     </ol>
                 </div>
             </div>
-        <!-- Mandatory Discord Notice -->
-        <div class="discord-warning">
-            ⚠️ WARNING: A Discord account is MANDATORY for participation
-            <br>
-            <span style="font-size: 0.8em;">(Registrations without valid Discord IDs will be sacrificed to the cipher gods)</span>
         </div>
-        <!-- New Register Button Section -->
+        
+        <!-- Register Button Section -->
         <div class="register-cta">
             <button class="register-main-button" onclick="window.location.href='register.html'">
-                REGISTER
+                REGISTER NOW
             </button>
         </div>
 
-        <script>
-            // Toggle Discord tutorial visibility
-            function toggleTutorial() {
-                const content = document.getElementById('tutorial-content');
-                content.style.display = content.style.display === 'none' ? 'block' : 'none';
-            }
-        </script>
-
-         <!-- Rules Section -->
-         <div class="event-details">
-            <h2>📜 Rules of the Hunt</h2>
-            <ul>
-                <li>No communication with spirits during prelims</li>
-                <li>Teams of 3 crypt keepers</li>
-                <li>All solutions must be in human-readable language</li>
-                <li>Finale participants will be chosen based on prelims performance</li>
-            </ul>
-        </div>
-        <div class="event-details">
-            <h2>🩸 Contact the Gravekeepers (For Technical Emergencies)</h2>
+        <!-- Contact Section -->
+        <section class="event-details">
+            <h2>🩸 Contact the Gravekeepers</h2>
             <div class="contact-tombstone">
                 <p>Summon our dark priests through these unholy seals:</p>
                 
@@ -548,7 +568,43 @@
                     ※ Responses manifest within 13 minutes during the witching hour (7PM-7AM)
                 </p>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Cyph-o-thon | Cryptic Hunt</p>
+    </footer>
+
+    <script>
+        // Toggle Discord tutorial visibility with improved accessibility
+        function toggleTutorial() {
+            const content = document.getElementById('tutorial-content');
+            const button = document.querySelector('.tutorial-button');
+            const isVisible = content.style.display !== 'none';
+            
+            content.style.display = isVisible ? 'none' : 'block';
+            button.setAttribute('aria-expanded', !isVisible);
+        }
+        
+        // Improve page load performance
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners after DOM is loaded
+            const links = document.querySelectorAll('.nav-link, .contact-link');
+            links.forEach(link => {
+                link.addEventListener('mouseover', function() {
+                    this.style.transition = 'all var(--transition-speed) ease';
+                });
+            });
+        });
+        
+        // Register service worker for offline capability
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('Service Worker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
