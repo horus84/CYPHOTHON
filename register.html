@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register for the Cryptic Hunt - A haunting online treasure hunt experience">
     <title>Register - Cryptic Hunt</title>
-    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load only the fonts we need -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eater&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
             --blood-red: #8b0000;
             --dark-bg: #0a0a0a;
             --glow: #ff0000;
+            --warning-color: #FF8C00;
+        }
+
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Special Elite', cursive;
-            background: var(--dark-bg);
+            background-color: var(--dark-bg);
             color: #fff;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Haunted background effect */
+        /* Haunted background effect with local texture for performance */
         body::before {
             content: '';
             position: fixed;
@@ -29,23 +43,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            background-image: url('data:image/png;base64,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');
             opacity: 0.3;
             z-index: -1;
+            will-change: transform; /* Hardware acceleration hint */
         }
 
         .navbar {
             padding: 1rem;
             background: rgba(0, 0, 0, 0.8);
             border-bottom: 2px solid var(--blood-red);
+            display: flex;
+            justify-content: flex-start;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-link {
-            color: #fff !important;
+            color: #fff;
             font-family: 'Eater', cursive;
             margin: 0 1rem;
             text-decoration: none;
             position: relative;
+            display: inline-block;
+            padding: 0.5rem 0;
+            transition: transform 0.3s ease;
         }
 
         .nav-link::after {
@@ -59,163 +82,185 @@
             transition: width 0.3s ease;
         }
 
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+
         .nav-link:hover::after {
             width: 100%;
         }
 
-        .home-container {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        h1 {
-            font-family: 'Creepster', cursive;
-            font-size: 4rem;
-            color: var(--blood-red);
-            text-shadow: 0 0 10px var(--glow);
-            margin: 2rem 0;
-        }
-
-        .registration-form {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2rem;
-            border: 2px solid var(--blood-red);
-            max-width: 600px;
-            margin: 2rem auto;
-            position: relative;
-        }
-
-        .registration-form::before {
-            content: '✞';
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.2;
-            top: -20px;
-            left: -20px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--blood-red);
-            color: #fff;
-            margin: 10px 0;
-            font-family: 'Special Elite', cursive;
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: #aaa;
-        }
-
-        button {
-            background: var(--blood-red);
-            color: #fff;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            font-family: 'Eater', cursive;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px var(--glow);
-        }
-        /* New team leader warning style */
-        .leader-warning {
-        color: #FF8C00;
-        border: 2px solid #FF8C00;
-        padding: 1rem;
-        margin: 2rem auto;
-        max-width: 800px;
-        animation: pulseLeader 2s infinite;
-        background: rgba(255, 140, 0, 0.1);
-        }
-
-        @keyframes pulseLeader {
-        0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 140, 0, 0.3); }
-        50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 140, 0, 0.5); }
-        }
-
-        /* Added Info hover effect */
         .nav-link[href="info.html"]::after {
             background: #00ff00; /* Green glow for Info */
         }
 
-        /* Candle flicker effect */
+        .home-container {
+            text-align: center;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+            color: var(--blood-red);
+            text-shadow: 0 0 10px var(--glow);
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        /* Team Leader Warning */
+        .leader-warning {
+            color: var(--warning-color);
+            border: 2px solid var(--warning-color);
+            padding: 1rem;
+            margin: 1.5rem auto;
+            max-width: 800px;
+            animation: pulseLeader 3s infinite;
+            background: rgba(255, 140, 0, 0.1);
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+        }
+
+        @keyframes pulseLeader {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 140, 0, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 140, 0, 0.5); }
+        }
+
+        /* Optimized iframe styling with loading indicator */
+        .haunted-iframe-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border: 2px solid var(--blood-red);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+            min-height: 600px; /* Minimum height while loading */
+        }
+
+        .haunted-iframe {
+            width: 100%;
+            height: 1500px;
+            border: none;
+            background: transparent;
+        }
+
+        /* Loading indicator */
+        .iframe-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: var(--blood-red);
+            text-shadow: 0 0 5px var(--glow);
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Candle flicker effect with improved performance */
         .candle-flicker {
             position: fixed;
             bottom: 20px;
             right: 20px;
             font-size: 2rem;
-            animation: flicker 0.7s infinite;
-        }
-        /* iOS Viewport Fix */
-        @supports (-webkit-touch-callout: none) {
-              .haunted-iframe {
-                     height: calc(100vh - 120px); /* Adjust for iOS navbar */
-            }
-        }
-          /* Android Viewport Fix */
-        @supports (-webkit-overflow-scrolling: touch) {
-                     body {
-                          -webkit-overflow-scrolling: touch;
-                }
-        .haunted-iframe {
-              height: calc(100vh - 80px); /* Adjust for Android navbar */
-                }
-        }    
-        /* Add this iframe styling */
-        .haunted-iframe {
-            width: 100%;
-            height: 1500px; /* Increased height for better form visibility */
-            border: 2px solid var(--blood-red);
-            background: rgba(0, 0, 0, 0.8);
-            margin: 2rem auto;
-            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+            filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.7));
+            z-index: 10;
+            animation: flicker 1.5s ease-in-out infinite alternate;
         }
 
-        /* Adjust container padding */
-        .home-container {
-            padding: 2rem 1rem;
-        }
         @keyframes flicker {
-            0% { opacity: 0.8; }
-            50% { opacity: 0.4; }
-            100% { opacity: 0.8; }
+            0% { opacity: 0.7; transform: scale(0.97); }
+            25% { opacity: 0.8; }
+            50% { opacity: 0.6; transform: scale(1.03); }
+            75% { opacity: 0.9; }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.75rem;
+            }
+            
+            .leader-warning {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .haunted-iframe-container {
+                border-width: 1px;
+            }
+        }
+
+        /* iOS and Android specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .haunted-iframe {
+                height: calc(100vh - 100px);
+            }
+        }
+
+        @supports (-webkit-overflow-scrolling: touch) {
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .haunted-iframe {
+                height: calc(100vh - 80px);
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="info.html" class="nav-link">Info</a> <!-- Changed to Info -->
+        <a href="info.html" class="nav-link">Info</a>
     </nav>
-
-    <!-- Candle flicker element -->
-    <div class="candle-flicker">🕯️</div>
 
     <!-- Registration Page Content -->
     <div class="home-container">
         <h1>Enter If You Dare...</h1>
     
-         <!-- Team Leader Warning -->
-         <div class="leader-warning">
-            🧛♂️ SOUL BINDING NOTICE: ONLY THE TEAM LEADER SHALL FILL THIS FORM
+        <!-- Team Leader Warning -->
+        <div class="leader-warning">
+            <span role="img" aria-label="vampire">🧛‍♂️</span> SOUL BINDING NOTICE: ONLY THE TEAM LEADER SHALL FILL THIS FORM
             <br>
-            <span style="font-size: 0.8em;">(Multiple submissions from same team will summon eldritch horrors)</span>
-       </div>
+            <span style="font-size: 0.9em;">(Multiple submissions from same team will summon eldritch horrors)</span>
+        </div>
         
-        <!-- Embedded Google Form -->
-        <iframe class="haunted-iframe" 
-                src="https://docs.google.com/forms/d/e/1FAIpQLSewN0rNoRmrf_EJykX9htLttOLoIN8zrnQ2_Kpse2uO3LBlSQ/viewform?embedded=true"
-                frameborder="0" 
-                marginheight="0" 
-                marginwidth="0">
-            Loading…
-        </iframe>
+        <!-- Enhanced iframe with loading indicator -->
+        <div class="haunted-iframe-container">
+            <div class="iframe-loading">Summoning form...</div>
+            <iframe class="haunted-iframe" 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSewN0rNoRmrf_EJykX9htLttOLoIN8zrnQ2_Kpse2uO3LBlSQ/viewform?embedded=true"
+                    loading="lazy"
+                    title="Cryptic Hunt Registration Form"
+                    onload="this.previousElementSibling.style.display='none';">
+            </iframe>
+        </div>
     </div>
+
+    <!-- Candle flicker element -->
+    <div class="candle-flicker" aria-hidden="true">🕯️</div>
+
+    <!-- Defer JavaScript for performance -->
+    <script>
+        // Add a small performance improvement for the iframe loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframe = document.querySelector('.haunted-iframe');
+            const loadingIndicator = document.querySelector('.iframe-loading');
+            
+            iframe.addEventListener('load', () => {
+                loadingIndicator.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
