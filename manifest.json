@@ -1,9 +1,11 @@
 {
-  "name": "Cyph-o-thon",
+  "name": "Cypher-o-thon",
   "short_name": "COT",
+  "description": "A cryptography challenge platform",
   "theme_color": "#8b0000",
   "background_color": "#0a0a0a",
   "display": "standalone",
+  "orientation": "any",
   "scope": "/",
   "start_url": "/",
   "icons": [
@@ -15,6 +17,17 @@
     {
       "src": "android-chrome-512x512.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
       "type": "image/png"
     }
   ]
